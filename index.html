@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="gnome-explorer">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Your gnome explorer</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/round-about.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- Angular (1.4) -->
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/tether/tether.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="controllers/main-controller.js"></script>
+
+</head>
+
+<body ng-controller="main-controller">
+
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="container">
+            <a class="navbar-brand" href="#">Gnome explorer</a>
+            <div class="collapse navbar-collapse" id="navbarExample">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Introduction Row -->
+        <h1 class="my-4">Welcome</h1>
+        <p>Use the gnome explorer to see all the gnomes registered in the game. Use the filter to search for an specific gnome and click on it to see its details</p>
+
+
+        <!-- Team Members Row -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h2 class="my-4">Gnomes</h2>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">search</span>
+                    <input type="text" ng-model="gnomename" ng-change="search_gnome()">
+                </div>
+                <span> {{visibleGnomes}} gnomes found</span>
+            </div>
+
+            <br>
+            <br>
+            <br>
+
+            <div ng-show="error" class="">
+              <h3>{{errorMessage}}</h3>
+            </div>
+
+
+            <div ng-show="gnome.isVisible == true" ng-repeat="gnome in gnomes" class="col-lg-4 col-sm-6 text-center mb-4">
+                <img style="cursor:pointer;" ng-click="show_gnome_info(gnome)" data-toggle="modal" data-target="#myModal" class="rounded-circle img-fluid d-block mx-auto thumbnail" src="{{gnome.thumbnail}}" alt="">
+                <h3>{{gnome.name}}
+                </h3>
+                <p>This gnome has {{gnome.friends.length}} friends</p>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{selectedGnome.name}}</h4>
+                        </div>
+                        <div class="modal-body">
+                          <h6>Details:</h6>
+                            <p>Id: {{selectedGnome.id}}.</p>
+                            <p>Age: {{selectedGnome.age}}.</p>
+                            <p>Weight: {{selectedGnome.weight}}.</p>
+                            <p>Height: {{selectedGnome.height}}.</p>
+                            <p>Hair color: {{selectedGnome.hair_color}}.</p>
+                            <p>Professions: {{selectedGnome.professions.join(", ")}}.</p>
+                            <p>Friends: {{selectedGnome.friends.join(", ")}}.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-inverse">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+</body>
+
+</html>
